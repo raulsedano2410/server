@@ -17,8 +17,6 @@ function postDriverValidate(req, res, next) {
 
   if (!newDriver.nationality) missingProperties.push('nationality');
 
-  // if (!newDriver.bio) missingProperties.push('bio');
-
   if (!newDriver.teams) missingProperties.push('teams');
 
   // Lanzará error si un dato es ausente.
@@ -33,7 +31,7 @@ function postDriverValidate(req, res, next) {
           )}`
         : `Falta la siguiente propiedad: ${missingPropertiesString}`;
 
-    return res.status(400).send({
+    return res.status(400).json({
       error: errorMessage,
     });
   }

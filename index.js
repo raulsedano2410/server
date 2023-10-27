@@ -7,11 +7,19 @@ dotenv.config();
 
 const port = process.env.PORT || 3001;
 
-conn
-  .sync({ force: true })
-  .then(() => {
+async function start() {
+  try {
+    await conn.authenticate();
+    console.log('Connection has been established successfully.');
+
+    await conn.sync({ force: true });
+
     server.listen(port, () => {
       console.log('%s listening at : http://localhost:%s', 'Server', port);
     });
-  })
-  .catch((error) => console.error(error));
+  } catch (error) {
+    console.error('Unable to connect to the database:', error);
+  }
+}
+
+start();

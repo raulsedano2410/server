@@ -8,14 +8,13 @@ const path = require('path');
 const { DATA_BASE } = process.env;
 
 const sequelize = new Sequelize(DATA_BASE, {
-  dialect: 'postgres',
   logging: false,
   native: false,
-  dialectOptions: {
-    ssl: {
-      require: true,
-    },
-  },
+  // dialectOptions: {
+  //   ssl: {
+  //     require: true,
+  //   },
+  // },
 });
 // const sequelize = new Sequelize(
 //   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/drivers`,
