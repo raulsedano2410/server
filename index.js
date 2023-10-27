@@ -8,8 +8,8 @@ dotenv.config();
 const port = process.env.PORT || 3001;
 
 conn
-  // .sync({ force: true })
-  .sync()
+  .sync({ alter: true })
+  // .sync()
   .then(() => {
     server.listen(port, () => {
       console.log('%s listening at : http://localhost:%s', 'Server', port);
