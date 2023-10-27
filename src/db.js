@@ -12,9 +12,9 @@ const sequelize = new Sequelize(DATA_BASE, {
   logging: false,
   native: false,
   dialectOptions: {
-    ssl: {
-      require: true,
-    },
+    // ssl: {
+    //   require: true,
+    // },
   },
 });
 // const sequelize = new Sequelize(
