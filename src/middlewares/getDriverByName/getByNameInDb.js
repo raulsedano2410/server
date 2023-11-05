@@ -5,14 +5,14 @@ async function getByNameInDb(req, res, next) {
   const { forename } = req.query;
 
   try {
-    const driversFromDb = await Driver.findAll({
+    const driversFromDb = await Driver?.findAll({
       where: {
         firstName: {
           [Op.iLike]: `%${forename}`, // Búsqueda parcial del nombre
         },
       },
-      // Agrega los 'teams' respectivos.
       include: {
+        // Agrega los 'teams' respectivos.
         model: Team,
         attributes: ['name'],
         through: {
@@ -22,8 +22,7 @@ async function getByNameInDb(req, res, next) {
     });
 
     // Modifica el formato de array de objetos(Teams) a array de cadenas(teams).
-    const cleanDrivers = driversFromDb.map((driver) => {
-      
+    const cleanDrivers = driversFromDb?.map((driver) => {
       const { Teams, ...restDriver } = driver.toJSON();
 
       const teams = Teams.map((t) => t.name).join(', ');
@@ -34,8 +33,11 @@ async function getByNameInDb(req, res, next) {
     req.driversFromDb = cleanDrivers;
 
     next();
+
   } catch (error) {
-    res.status(500).json({ error });
+
+    next(error)
+
   }
 }
 module.exports = getByNameInDb;

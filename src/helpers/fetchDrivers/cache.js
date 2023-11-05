@@ -6,10 +6,21 @@ function setCache(data = driverCache) {
 }
 
 // Buscar en cache
-async function getFromCache(key, value) {
-  // Encontrar por key y value
-  return driverCache.find((driver) => driver[key] === value);
-}
+ function getFromCache(key, value) {
+   if (key === 'forename') {
+     const dataByName = driverCache.filter(
+       ({ firstName }) => firstName === value,
+     );
+     return dataByName;
+   }
+   if (key === 'id') {
+     console.log(key, value);
+     const dataById = driverCache.find(
+       ({ id }) => parseInt(id) === parseInt(value),
+     );
+     return dataById;
+   }
+ }
 
 module.exports = {
   getFromCache,

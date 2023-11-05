@@ -4,24 +4,25 @@ const { fetchDataApi, buildUrl } = require('./requests');
 const { setCache, getFromCache } = require('./cache');
 
 async function fetchDrivers(obj = null) {
-  let url;
-  let key = '';
-  let value = '';
-
   // Actualiza el estado de la variable cache
   let driverCache = setCache();
+
+  // Revisar cache
+  if (driverCache.length > 1 && !obj) {
+    // Retornar cache si existe
+    return driverCache;
+  }
+
+  let url;
+  let key;
+  let value;
+
   // Obtener key y value del objeto
   if (obj) {
     [key, value] = Object.entries(obj)[0];
   }
 
   try {
-    // Revisar cache
-    if (driverCache?.length > 1 && !obj) {
-      // Retornar cache si existe
-      return driverCache;
-    }
-
     // Petición si no hay objeto
     if (!obj) {
       // Obtener datos de API
@@ -49,7 +50,7 @@ async function fetchDrivers(obj = null) {
         return dataFromApi;
       }
       // Buscar en cache
-      const dataFromCache = getFromCache(key, cleanValue);
+      const dataFromCache = getFromCache(key, cleanValue, driverCache);
       return dataFromCache;
     }
 
@@ -58,11 +59,12 @@ async function fetchDrivers(obj = null) {
       // Petición si no hay cache
       if (!driverCache.length) {
         url = buildUrl('/', value);
+        console.log(url);
         const dataFromApi = await fetchDataApi(url);
         return dataFromApi;
       }
       // Buscar en cache
-      const dataFromCache = getFromCache(key, value);
+      const dataFromCache = getFromCache(key, value, driverCache);
       return dataFromCache;
     }
   } catch (error) {
