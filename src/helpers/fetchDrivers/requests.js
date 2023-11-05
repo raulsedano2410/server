@@ -26,7 +26,7 @@ async function fetchDataApi(url) {
 function buildUrl(path, value) {
   if (!path) return url;
 
-  return url.concat(path).concat(value);
+  return url.concat('/drivers').concat(path).concat(value);
 }
 
 module.exports = {
