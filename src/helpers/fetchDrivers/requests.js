@@ -24,7 +24,7 @@ async function fetchDataApi(url) {
 }
 // Arma la ruta del endpoint de la API
 function buildUrl(path, value) {
-  if (!path) return url;
+  if (!path) return url.concat('/drivers');
 
   return url.concat('/drivers').concat(path).concat(value);
 }
