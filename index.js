@@ -12,7 +12,7 @@ async function start() {
     await conn.authenticate();
     console.log('Connection has been established successfully.');
 
-    await conn.sync();
+    await conn.sync({force:true});
 
     server.listen(port, () => {
       console.log('%s listening at : http://localhost:%s', 'Server', port);
